@@ -38,7 +38,7 @@ public class PlayerEvent implements Listener {
         player.teleport((Location) quake.getConfig().get("spawn"));
         player.sendMessage(ChatColor.YELLOW + "[QUAKE]" + ChatColor.GRAY + " vous avez rejoint le jeu quake.");
         event.setJoinMessage(ChatColor.YELLOW + "[QUAKE] " + ChatColor.AQUA + player.getName() + ChatColor.GRAY + " a rejoint la partie");
-        if(Bukkit.getOnlinePlayers().size() >= 2)
+        if(Bukkit.getOnlinePlayers().size() >= 8)
             quake.startGame();
     }
 
@@ -68,7 +68,7 @@ public class PlayerEvent implements Listener {
             player.getWorld().spawnParticle(Particle.FLAME , block.getLocation().getX(),block.getLocation().getY(),block.getLocation().getZ(),1,0,0,0);
             for (Player killed : Bukkit.getOnlinePlayers())
                 if (killed.getLocation().distance(block.getLocation()) < 1) {
-                if(killed == player)return;
+                    if(killed == player)return;
                     quake.getQuakePlayer(killed).kill(player);
                     quakePlayer.addKill();
                     break;
