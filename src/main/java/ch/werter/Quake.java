@@ -3,11 +3,10 @@ package ch.werter;
 import ch.werter.listener.PlayerEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,13 +27,17 @@ public class Quake extends JavaPlugin {
     }
 
     public void startGame(){
-        Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
-        Objective objective = scoreboard.registerNewObjective("Quake","dummy");
-        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
         for(Player player : Bukkit.getOnlinePlayers()){
             player.teleport(((ArrayList<Location>) getConfig().getList("spawn_random")).get(new Random().nextInt(3)));
-            player.setScoreboard(scoreboard);
+            getQuakePlayer(player).setCanShoot(true);
+            player.getInventory().clear();
+            player.setFoodLevel(20);
+            player.setExp(0);
+            player.setLevel(0);
+            player.getInventory().addItem(new ItemStack(Material.WOOD_HOE));
         }
+        setStatus(Status.INGAME);
+        Bukkit.broadcastMessage("La partie commence");
 
     }
 
