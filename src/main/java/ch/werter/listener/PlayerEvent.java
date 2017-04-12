@@ -2,6 +2,7 @@ package ch.werter.listener;
 
 import ch.werter.Quake;
 import ch.werter.QuakePlayer;
+import ch.werter.Status;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -23,6 +24,10 @@ public class PlayerEvent implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event){
+        if(!quake.isStatus(Status.WAITING_FOR_PLAYER)){
+            event.getPlayer().kickPlayer("La partie a déjà commencé");
+            return;
+        }
         Player player = event.getPlayer();
         quake.registerPlayer(event.getPlayer());
         player.teleport((Location) quake.getConfig().get("spawn"));
