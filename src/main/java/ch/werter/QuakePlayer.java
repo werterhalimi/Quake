@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -48,6 +49,7 @@ public class QuakePlayer {
 
     public void kill(Player killer){
         this.getPlayer().teleport(((ArrayList<Location>) quake.getConfig().getList("spawn_random")).get(new Random().nextInt(3)));
+        this.getPlayer().getScoreboard().getObjective(DisplaySlot.SIDEBAR).getScore(killer.getName() + " kill: " + quake.getQuakePlayer(killer).getKill());
         Bukkit.broadcastMessage(ChatColor.YELLOW + killer.getName() + " a tué " + player.getName());
     }
 
