@@ -20,12 +20,17 @@ public class Quake extends JavaPlugin {
         this.status = Status.WAITING_FOR_PLAYER;
     }
 
+
     public void registerPlayer(Player player){
         this.quakePlayers.put(player,new QuakePlayer(player));
     }
 
     public QuakePlayer getQuakePlayer(Player player){
         return  this.quakePlayers.get(player);
+    }
+
+    public boolean isStatus(Status status){
+        return this.status == status;
     }
 
     public void setStatus(Status status){
