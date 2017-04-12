@@ -22,10 +22,11 @@ public class Quake extends JavaPlugin {
         this.status = Status.WAITING_FOR_PLAYER;
     }
 
-    public void endGame(){
+    public void endGame(QuakePlayer winner){
         setStatus(Status.END);
         for(Player player : Bukkit.getOnlinePlayers())
             player.teleport((Location) getConfig().get("spawn"));
+        Bukkit.broadcastMessage(winner.getPlayer().getName() + " a gagné la partie");
     }
 
     public void registerPlayer(Player player){

@@ -34,7 +34,7 @@ public class QuakePlayer {
     public void addKill(int kill){
         this.kill =+ kill;
         if(kill == 25)
-            quake.endGame();
+            quake.endGame(this);
 
     }
 
