@@ -14,6 +14,7 @@ import java.util.Random;
 public class QuakePlayer {
 
     private  Quake quake;
+    private boolean canShoot;
     private Player player;
     private int kill;
 
@@ -35,6 +36,14 @@ public class QuakePlayer {
         if(kill == 25)
             quake.endGame();
 
+    }
+
+    public boolean canShoot() {
+        return canShoot;
+    }
+
+    public void setCanShoot(boolean canShoot) {
+        this.canShoot = canShoot;
     }
 
     public void kill(Player killer){
