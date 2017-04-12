@@ -36,6 +36,8 @@ public class PlayerEvent implements Listener {
         player.teleport((Location) quake.getConfig().get("spawn"));
         player.sendMessage(ChatColor.YELLOW + "[QUAKE]" + ChatColor.GRAY + " vous avez rejoint le jeu quake.");
         Bukkit.broadcastMessage(ChatColor.YELLOW + "[QUAKE] " + ChatColor.AQUA + player.getName() + ChatColor.GRAY + " a rejoint la partie");
+        if(Bukkit.getOnlinePlayers().size() == 10)
+            quake.startGame();
     }
 
     @EventHandler
@@ -67,6 +69,4 @@ public class PlayerEvent implements Listener {
             }
         }.runTaskTimer(this.quake,20,20);
     }
-
-
 }
