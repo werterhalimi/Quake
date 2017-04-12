@@ -12,17 +12,27 @@ import java.util.HashMap;
 public class Quake extends JavaPlugin {
 
     private HashMap<Player,QuakePlayer> quakePlayers = new HashMap<Player, QuakePlayer>();
+    private Status status;
 
     @Override
     public void onEnable() {
         this.getServer().getPluginManager().registerEvents(new PlayerEvent(this),this);
+        this.status = Status.WAITING_FOR_PLAYER;
     }
 
     public void registerPlayer(Player player){
-        this.quakePlayers.put(player,new QuakePlayer());
+        this.quakePlayers.put(player,new QuakePlayer(player));
     }
 
     public QuakePlayer getQuakePlayer(Player player){
         return  this.quakePlayers.get(player);
+    }
+
+    public void setStatus(Status status){
+        this.status = status;
+    }
+
+    public Status getStatus(){
+        return  this.status;
     }
 }
