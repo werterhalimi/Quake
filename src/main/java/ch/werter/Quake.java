@@ -1,6 +1,8 @@
 package ch.werter;
 
 import ch.werter.listener.PlayerEvent;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,9 +22,14 @@ public class Quake extends JavaPlugin {
         this.status = Status.WAITING_FOR_PLAYER;
     }
 
+    public void endGame(){
+        setStatus(Status.END);
+        for(Player player : Bukkit.getOnlinePlayers())
+            player.teleport((Location) getConfig().get("spawn"));
+    }
 
     public void registerPlayer(Player player){
-        this.quakePlayers.put(player,new QuakePlayer(player));
+        this.quakePlayers.put(player,new QuakePlayer(player,this));
     }
 
     public QuakePlayer getQuakePlayer(Player player){
