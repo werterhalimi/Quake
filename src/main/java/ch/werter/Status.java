@@ -5,5 +5,6 @@ package ch.werter;
  */
 public enum Status {
     WAITING_FOR_PLAYER,
-    INGAME;
+    INGAME,
+    END;
 }
