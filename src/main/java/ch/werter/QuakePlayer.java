@@ -63,8 +63,7 @@ public class QuakePlayer {
         }
     }
     public void kill(Player killer){
-        this.getPlayer().teleport(((ArrayList<Location>) quake.getConfig().getList("spawn_random")).get(new Random().nextInt(3)));
-        this.getPlayer().getScoreboard().getObjective(DisplaySlot.SIDEBAR).getScore(killer.getName() + " kill: " + quake.getQuakePlayer(killer).getKill());
+        this.getPlayer().teleport(((ArrayList<Location>) quake.getConfig().getList("spawn_random")).get(new Random().nextInt(quake.getConfig().getList("spawn_random").size())));
         Bukkit.broadcastMessage(ChatColor.YELLOW + killer.getName() + " a tué " + player.getName());
     }
 

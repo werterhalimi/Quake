@@ -9,10 +9,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Set;
 
@@ -28,6 +28,11 @@ public class PlayerEvent implements Listener {
     }
 
     @EventHandler
+    public void onPlayerDamage(EntityDamageEvent event){
+        event.setCancelled(true);
+    }
+
+    @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event){
         if(!quake.isStatus(Status.WAITING_FOR_PLAYER)){
             event.getPlayer().kickPlayer("La partie a déjà commencé");
@@ -38,7 +43,7 @@ public class PlayerEvent implements Listener {
         player.teleport((Location) quake.getConfig().get("spawn"));
         player.sendMessage(ChatColor.YELLOW + "[QUAKE]" + ChatColor.GRAY + " vous avez rejoint le jeu quake.");
         event.setJoinMessage(ChatColor.YELLOW + "[QUAKE] " + ChatColor.AQUA + player.getName() + ChatColor.GRAY + " a rejoint la partie");
-        if(Bukkit.getOnlinePlayers().size() >= 8)
+        if(Bukkit.getOnlinePlayers().size() >= 2)
             quake.startGame();
     }
 
@@ -65,7 +70,7 @@ public class PlayerEvent implements Listener {
         Player player = event.getPlayer();
         QuakePlayer quakePlayer = quake.getQuakePlayer(player);
         for (Block block : player.getLineOfSight((Set<Material>) null, 100)) {
-            player.getWorld().spawnParticle(Particle.FLAME , block.getLocation().getX(),block.getLocation().getY(),block.getLocation().getZ(),1,0,0,0);
+            player.getWorld().spawnParticle(Particle.FLAME , block.getLocation().getX(),block.getLocation().getY(),block.getLocation().getZ(),1,0,0,0,0);
             for (Player killed : Bukkit.getOnlinePlayers())
                 if (killed.getLocation().distance(block.getLocation()) < 1) {
                     if(killed == player)return;
